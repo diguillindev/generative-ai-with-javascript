@@ -1,5 +1,5 @@
 import { OpenAI } from "openai";
-import readline from "readline";
+import readline from "node:readline";
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -27,11 +27,15 @@ const distance = 100;
 
 // Create prompt including inputs should include chain of thought
 
-const prompt = "TODO";
+const prompt = `Current height above the ground: ${height} meters, Moving forward at: ${speed} meters per second, Gravity: ${gravity} meters per second squared, Wind upwards at: ${wind} meters per second, Distance to the hill: ${distance} meters, Time it will take to reach the hill: t, Here's the formula to calculate the time it will take to reach the hill: D = 1/2 * (g - w) * t^2.`;
 
 // Call the language model with the prompt
 
 const messages = [
+  {
+    role: "system",
+    content: "You are a physics expert. Solve the problem step by step using the provided formula."
+  },
 {
     "role": "user",
     "content": prompt
