@@ -53,5 +53,7 @@ const chunks = await openai.chat.completions.create({
 console.log(`You:\n${question}\n\nTim:`);
 
 for await (const chunk of chunks) {
-  process.stdout.write(chunk.choices[0].delta.content ?? "");
+  if (chunk.choices && chunk.choices[0] && chunk.choices[0].delta) {
+    process.stdout.write(chunk.choices[0].delta.content ?? "");
+  }
 }
